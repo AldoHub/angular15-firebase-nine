@@ -1,0 +1,43 @@
+<form (ngSubmit)="addPost(postForm.value)" [formGroup]="postForm">
+
+    <h2>Create a new post.</h2>
+    <p>Fill the form to add a new post to the database.</p>  
+
+    <div class="formcontrol">
+        <label for="title">Title</label>
+        <input type="text" formControlName="title" name="title"/>
+    
+        <div class="error" *ngIf="postForm.get('title')!.errors && 
+        postForm.get('title')!.hasError('required') && (postForm.get('title')!.dirty || postForm.get('title')!.touched)">
+            <span>Title Error</span>
+        </div>
+
+
+    </div>
+
+    <div class="formcontrol">
+        <label for="content">Choose a Cover</label>
+        <textarea name="content" id="content" formControlName="content"></textarea>
+    
+        <div class="error" *ngIf="postForm.get('content')!.errors && 
+        postForm.get('content')!.hasError('required') && (postForm.get('content')!.dirty || postForm.get('content')!.touched)" >
+          <span>Empty Content Error</span>
+      </div>
+
+    </div>
+
+
+    <div class="formcontrol">
+        <label for="cover" class="cover">Choose a Cover</label>
+        <input type="file" name="cover" id="cover" formControlName="cover" (change)="handleInput($event)">
+    
+        <div class="error" *ngIf="postForm.get('cover')!.errors && 
+        postForm.get('cover')!.hasError('required') && (postForm.get('cover')!.dirty || postForm.get('cover')!.touched)">
+          <span>Empty File Error</span>
+      </div>
+
+    </div>
+
+
+    <input type="submit" [disabled]="!postForm.valid" value="Submit">
+</form>

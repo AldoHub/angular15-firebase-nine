@@ -1,0 +1,12 @@
+
+<div class="post-container">
+    <div *ngIf="post; else loading">
+        <h2>{{post.title}}</h2>
+    </div>
+
+
+    <ng-template #loading>
+        <div>LOADING CONTENT</div>  
+    </ng-template>
+
+</div>
