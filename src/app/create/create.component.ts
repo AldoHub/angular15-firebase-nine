@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   standalone: true,
@@ -10,6 +11,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent {
+
+ constructor(
+  private firebaseService: FirebaseService
+ ){
+  
+ }
 
   public image:any = null; //list of files
   public busy: boolean = false;
@@ -26,9 +33,10 @@ export class CreateComponent {
     console.log(this.image[0]);
   }
 
-  addPost(value: any){
-    //get the form values
-    console.log(this.postForm.value);
-   
+  async addPost(){
+    //save the post to firebase
+    let post = await this.firebaseService.addPost(this.postForm.value, this.image);
+    //clean the form
+   console.log(post);
   }
 }

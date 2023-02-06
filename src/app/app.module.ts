@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AngularFireStorageModule, BUCKET } from "@angular/fire/compat/storage";
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 //environment
 import { environment } from '../environments/environment';
@@ -27,6 +28,7 @@ import { environment } from '../environments/environment';
     AngularFireStorageModule
   ],
   providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     { provide: BUCKET, useValue: 'gs://fir-nine-cb0b5.appspot.com' }
   ],
   bootstrap: [AppComponent]
