@@ -1,7 +1,62 @@
 
 <div class="post-container">
     <div *ngIf="post; else loading">
-        <h2>{{post.title}}</h2>
+        <div>
+            <img src="{{post.cover}}" />
+        </div>
+        
+        <div>
+            <h2>{{post.title}}</h2>
+            <div>{{post.content}}</div>
+        </div>    
+    
+    
+        <hr/>
+    
+
+        <div class="form-container">
+
+            <form (ngSubmit)="updatePost()" [formGroup]="updateForm">
+             
+                <p>Fill the form to update the current post.</p>  
+            
+                <div class="formcontrol">
+                    <label for="title">Title</label>
+                    <input type="text" formControlName="title" name="title"/>
+                
+                    <div class="error" *ngIf="updateForm.get('title')!.errors && 
+                    updateForm.get('title')!.hasError('required') && (updateForm.get('title')!.dirty || updateForm.get('title')!.touched)">
+                        <span>Title Error</span>
+                    </div>
+            
+            
+                </div>
+            
+                <div class="formcontrol">
+                    <label for="content">Content</label>
+                    <textarea name="content" id="content" formControlName="content"></textarea>
+                
+                    <div class="error" *ngIf="updateForm.get('content')!.errors && 
+                    updateForm.get('content')!.hasError('required') && (updateForm.get('content')!.dirty || updateForm.get('content')!.touched)" >
+                      <span>Empty Content Error</span>
+                  </div>
+            
+                </div>
+            
+            
+                <div class="formcontrol">
+                    <label for="cover" class="cover">Choose a Cover</label>
+                    <input type="file" name="cover" id="cover" (change)="handleInput($event)">
+                </div>
+
+                <input type="hidden" formControlName="oldcover" name="oldcover"/>
+            
+                <input type="submit" [disabled]="!updateForm.valid" value="Submit">
+            </form>
+        </div>
+    
+
+        <button (click)="removePost()">Remove Post</button>
     </div>
 
 
